@@ -34,12 +34,12 @@ const html = `<!doctype html>
       * { box-sizing: border-box; }
       html, body { margin: 0; background: #f5f5f2; }
       body { color: #111411; font-family: Arial, Helvetica, sans-serif; }
-      .plate { width: 1600px; height: 1150px; padding: 58px 64px 56px; background: #f5f5f2; }
-      .meta { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #d5d7d2; padding-bottom: 18px; color: #666b66; font: 700 13px/1.2 "Courier New", monospace; letter-spacing: .08em; text-transform: uppercase; }
+      .plate { width: 1600px; height: 950px; padding: 32px 64px 32px; background: #f5f5f2; }
+      .meta { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #d5d7d2; padding-bottom: 12px; color: #666b66; font: 700 13px/1.2 "Courier New", monospace; letter-spacing: .08em; text-transform: uppercase; }
       .meta strong { color: #111411; }
-      .intro { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 40px; padding: 34px 0 30px; }
-      h1 { max-width: 900px; margin: 0; font-size: 62px; line-height: .98; letter-spacing: -.055em; font-weight: 800; }
-      .sub { max-width: 500px; margin: 15px 0 0; color: #505651; font-size: 18px; line-height: 1.35; }
+      .intro { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 40px; padding: 18px 0 18px; }
+      h1 { max-width: 1100px; margin: 0; font-size: 48px; line-height: 1; letter-spacing: -.05em; font-weight: 800; white-space: nowrap; }
+      .sub { max-width: 620px; margin: 8px 0 0; color: #505651; font-size: 16px; line-height: 1.25; }
       .caption { align-self: end; padding-bottom: 4px; color: #505651; font: 700 13px/1.35 "Courier New", monospace; text-align: right; }
       .caption strong { color: #111411; }
       .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
@@ -94,7 +94,7 @@ const html = `<!doctype html>
 
 const browser = await chromium.launch({ headless: true });
 try {
-  const page = await browser.newPage({ viewport: { width: 1600, height: 1150 }, deviceScaleFactor: 1 });
+  const page = await browser.newPage({ viewport: { width: 1600, height: 950 }, deviceScaleFactor: 1 });
   await page.setContent(html, { waitUntil: "load" });
   await page.screenshot({ path: resolve(assetRoot, "ship-pretty-hero.png"), fullPage: false });
   await page.close();
