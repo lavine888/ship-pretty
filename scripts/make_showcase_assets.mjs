@@ -45,35 +45,40 @@ const base = `
   .flow span:nth-child(3) { background: #d9f45a; }
   .flow span:nth-child(4) { background: #bd93ff; }
   .arrow { color: #f8f4ed; font-size: 18px; }
-  .compare { display: flex; align-items: center; justify-content: center; gap: 18px; margin: 54px 0 0 236px; }
-  .shot { width: 480px; padding: 13px 13px 17px; background: #f8f4ed; color: #0d1020; box-shadow: 12px 14px 0 #00000040; }
-  .shot.before { transform: rotate(-2.3deg) translateY(12px); }
-  .shot.after { transform: rotate(2.3deg) translateY(-8px); }
-  .shot-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 11px; font: 900 11px/1 "Courier New", monospace; letter-spacing: .08em; text-transform: uppercase; }
-  .shot-head .tag { padding: 6px 8px; background: #0d1020; color: #f8f4ed; }
+  .compare { display: grid; grid-template-columns: minmax(0, 1fr) 132px minmax(0, 1fr); align-items: center; gap: 24px; margin-top: 44px; }
+  .shot { min-width: 0; padding: 15px 15px 17px; background: #f8f4ed; color: #0d1020; box-shadow: 14px 16px 0 #00000052; }
+  .shot.before { border-top: 9px solid #e75c7f; transform: rotate(-1.35deg) translateY(10px); }
+  .shot.after { border-top: 9px solid #17634b; transform: rotate(1.35deg) translateY(-10px); }
+  .shot-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font: 900 12px/1 "Courier New", monospace; letter-spacing: .08em; text-transform: uppercase; }
+  .shot-head .tag { padding: 7px 9px; background: #e75c7f; color: #0d1020; }
   .shot.after .shot-head .tag { background: #d9f45a; color: #0d1020; }
-  .shot img { display: block; width: 100%; height: 250px; object-fit: cover; object-position: top; border: 1px solid #0d1020; }
-  .shot-foot { display: flex; justify-content: space-between; margin-top: 12px; font: 700 11px/1.1 "Courier New", monospace; }
-  .shot-foot strong { color: #e75c7f; }
+  .shot img { display: block; width: 100%; height: 342px; object-fit: cover; object-position: top; border: 1px solid #0d1020; }
+  .shot-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 13px; font: 700 12px/1.1 "Courier New", monospace; }
+  .shot-foot strong { color: #e75c7f; font-size: 16px; }
   .shot.after .shot-foot strong { color: #17634b; }
-  .verdict { display: flex; flex: 0 0 106px; flex-direction: column; align-items: center; gap: 11px; color: #f8f4ed; font: 900 10px/1.2 "Courier New", monospace; letter-spacing: .08em; text-align: center; text-transform: uppercase; }
-  .verdict b { display: grid; place-items: center; width: 72px; height: 72px; border-radius: 50%; background: #ff806b; color: #0d1020; font: 900 16px/1 Arial, sans-serif; transform: rotate(-8deg); }
-  .verdict i { font-size: 32px; font-style: normal; color: #d9f45a; }
-  .caption { margin-top: 44px; color: #a9b1b8; font: 700 12px/1.4 "Courier New", monospace; letter-spacing: .08em; text-transform: uppercase; }
+  .verdict { display: flex; flex-direction: column; align-items: center; gap: 13px; color: #f8f4ed; font: 900 10px/1.25 "Courier New", monospace; letter-spacing: .08em; text-align: center; text-transform: uppercase; }
+  .verdict b { display: grid; place-items: center; width: 112px; height: 112px; border-radius: 50%; background: #ff806b; color: #0d1020; font: 900 21px/.96 Arial, sans-serif; transform: rotate(-7deg); }
+  .verdict i { font-size: 40px; font-style: normal; color: #d9f45a; }
+  .verdict span { color: #d9f45a; }
+  .caption { margin-top: 30px; color: #a9b1b8; font: 700 12px/1.4 "Courier New", monospace; letter-spacing: .08em; text-transform: uppercase; }
 `;
 
 const hero = `<!doctype html><html><head><style>${base}
-  .hero-canvas { height: 900px; }
-  .hero-canvas .compare { margin-top: 54px; }
+  .hero-canvas { height: 1040px; }
+  .hero-canvas .inner { padding-top: 44px; }
+  .hero-canvas .eyebrow { margin-top: 54px; }
+  .hero-canvas .title { max-width: 820px; font-size: 76px; }
+  .hero-canvas .sub { margin-top: 18px; }
+  .hero-canvas .flow { margin-top: 22px; }
 </style></head><body><section class="canvas hero-canvas"><div class="inner">
   <div class="top"><div class="brand"><span class="mark">SP</span> Ship Pretty</div><div>Case 001 / visual QA</div></div>
-  <div class="eyebrow">The visual quality gate for AI-built interfaces</div>
+  <div class="eyebrow">The same fixture / two visual verdicts</div>
   <h1 class="title">AI can generate.<br><em>Ship Pretty decides.</em></h1>
-  <p class="sub">A screenshot-backed loop that turns “looks good in code” into a decision you can actually inspect.</p>
+  <p class="sub">The screenshots are the proof. The layout below makes the disagreement impossible to miss.</p>
   <div class="flow"><span>RENDER</span><b class="arrow">→</b><span>JUDGE</span><b class="arrow">→</b><span>PATCH</span><b class="arrow">→</b><span>RE-RENDER</span></div>
   <div class="compare">
     <article class="shot before"><div class="shot-head"><span>Without Ship Pretty</span><span class="tag">Not ready</span></div><img src="${before}" alt="Generic AI landing page before refinement"><div class="shot-foot"><span>centered stack / equal cards</span><strong>43 / 100</strong></div></article>
-    <div class="verdict"><b>PATCH<br>THE<br>BIGGEST</b><i>→</i><span>same fixture<br>better decision</span></div>
+    <div class="verdict"><b>43<br><span style="font-size:14px;">→</span><br>84</b><i>→</i><span>patch the<br>biggest problem</span></div>
     <article class="shot after"><div class="shot-head"><span>With Ship Pretty</span><span class="tag">Ready to ship</span></div><img src="${after}" alt="Refined Ship Pretty landing page"><div class="shot-foot"><span>hierarchy / evidence / intent</span><strong>84 / 100</strong></div></article>
   </div>
   <div class="caption">One rendered frame is a claim. Before / after evidence is a case.</div>
@@ -116,7 +121,7 @@ const loop = `<!doctype html><html><head><style>${base}
 
 const browser = await chromium.launch({ headless: true });
 try {
-  const heroPage = await browser.newPage({ viewport: { width: 1600, height: 900 }, deviceScaleFactor: 1 });
+  const heroPage = await browser.newPage({ viewport: { width: 1600, height: 1040 }, deviceScaleFactor: 1 });
   await heroPage.setContent(hero, { waitUntil: "load" });
   await heroPage.screenshot({ path: resolve(assetRoot, "ship-pretty-hero.png"), fullPage: false });
   await heroPage.close();
