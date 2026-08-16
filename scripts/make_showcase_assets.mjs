@@ -1,8 +1,10 @@
 #!/usr/bin/env node
 /**
- * Build the README showcase images from the real landing-page captures.
- * The screenshots stay truthful; the surrounding poster layout supplies the
- * visual story that a plain Markdown table cannot.
+ * Build the README hero from real benchmark captures.
+ *
+ * This is intentionally a report plate, not a marketing poster: the rendered
+ * screenshots are the dominant visual and the surrounding UI only labels the
+ * evidence.
  */
 
 import { createRequire } from "node:module";
@@ -24,114 +26,80 @@ async function dataUrl(path) {
 const before = await dataUrl(resolve(assetRoot, "benchmarks/landing-page/before/desktop.png"));
 const after = await dataUrl(resolve(assetRoot, "benchmarks/landing-page/after/desktop.png"));
 
-const base = `
-  * { box-sizing: border-box; }
-  html, body { margin: 0; background: #0d1020; }
-  body { color: #f8f4ed; font-family: Arial, Helvetica, sans-serif; }
-  .canvas { position: relative; overflow: hidden; width: 1600px; background: #0d1020; }
-  .canvas::before { content: ""; position: absolute; inset: 0; opacity: .22; background-image: linear-gradient(#ffffff12 1px, transparent 1px), linear-gradient(90deg, #ffffff12 1px, transparent 1px); background-size: 36px 36px; mask-image: linear-gradient(to bottom, black, transparent 80%); }
-  .canvas::after { content: ""; position: absolute; width: 520px; height: 520px; right: -130px; top: -160px; border-radius: 50%; background: #e75c7f; filter: blur(8px); opacity: .83; }
-  .inner { position: relative; z-index: 1; padding: 52px 66px 50px; }
-  .top { display: flex; justify-content: space-between; align-items: center; color: #b6c1b8; font: 700 12px/1.2 "Courier New", monospace; letter-spacing: .14em; text-transform: uppercase; }
-  .brand { display: flex; align-items: center; gap: 12px; color: #f8f4ed; }
-  .mark { display: grid; place-items: center; width: 31px; height: 31px; background: #d9f45a; color: #0d1020; font: 900 11px Arial, sans-serif; letter-spacing: -.05em; }
-  .eyebrow { margin-top: 74px; color: #d9f45a; font: 700 13px/1.2 "Courier New", monospace; letter-spacing: .16em; text-transform: uppercase; }
-  .title { max-width: 840px; margin: 18px 0 0; font-size: 88px; line-height: .89; letter-spacing: -.085em; }
-  .title em { color: #d9f45a; font-style: normal; }
-  .sub { max-width: 650px; margin: 25px 0 0; color: #c3c7cd; font-size: 18px; line-height: 1.45; }
-  .flow { display: flex; align-items: center; gap: 10px; margin-top: 32px; color: #0d1020; font: 900 11px/1 "Courier New", monospace; letter-spacing: .08em; }
-  .flow span { padding: 10px 12px; background: #f8f4ed; }
-  .flow span:nth-child(2) { background: #ff806b; }
-  .flow span:nth-child(3) { background: #d9f45a; }
-  .flow span:nth-child(4) { background: #bd93ff; }
-  .arrow { color: #f8f4ed; font-size: 18px; }
-  .compare { display: grid; grid-template-columns: minmax(0, 1fr) 132px minmax(0, 1fr); align-items: center; gap: 24px; margin-top: 44px; }
-  .shot { min-width: 0; padding: 15px 15px 17px; background: #f8f4ed; color: #0d1020; box-shadow: 14px 16px 0 #00000052; }
-  .shot.before { border-top: 9px solid #e75c7f; transform: rotate(-1.35deg) translateY(10px); }
-  .shot.after { border-top: 9px solid #17634b; transform: rotate(1.35deg) translateY(-10px); }
-  .shot-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 12px; font: 900 12px/1 "Courier New", monospace; letter-spacing: .08em; text-transform: uppercase; }
-  .shot-head .tag { padding: 7px 9px; background: #e75c7f; color: #0d1020; }
-  .shot.after .shot-head .tag { background: #d9f45a; color: #0d1020; }
-  .shot img { display: block; width: 100%; height: 342px; object-fit: cover; object-position: top; border: 1px solid #0d1020; }
-  .shot-foot { display: flex; justify-content: space-between; gap: 12px; margin-top: 13px; font: 700 12px/1.1 "Courier New", monospace; }
-  .shot-foot strong { color: #e75c7f; font-size: 16px; }
-  .shot.after .shot-foot strong { color: #17634b; }
-  .verdict { display: flex; flex-direction: column; align-items: center; gap: 13px; color: #f8f4ed; font: 900 10px/1.25 "Courier New", monospace; letter-spacing: .08em; text-align: center; text-transform: uppercase; }
-  .verdict b { display: grid; place-items: center; width: 112px; height: 112px; border-radius: 50%; background: #ff806b; color: #0d1020; font: 900 21px/.96 Arial, sans-serif; transform: rotate(-7deg); }
-  .verdict i { font-size: 40px; font-style: normal; color: #d9f45a; }
-  .verdict span { color: #d9f45a; }
-  .caption { margin-top: 30px; color: #a9b1b8; font: 700 12px/1.4 "Courier New", monospace; letter-spacing: .08em; text-transform: uppercase; }
-`;
-
-const hero = `<!doctype html><html><head><style>${base}
-  .hero-canvas { height: 1040px; }
-  .hero-canvas .inner { padding-top: 44px; }
-  .hero-canvas .eyebrow { margin-top: 54px; }
-  .hero-canvas .title { max-width: 820px; font-size: 76px; }
-  .hero-canvas .sub { margin-top: 18px; }
-  .hero-canvas .flow { margin-top: 22px; }
-</style></head><body><section class="canvas hero-canvas"><div class="inner">
-  <div class="top"><div class="brand"><span class="mark">SP</span> Ship Pretty</div><div>Case 001 / visual QA</div></div>
-  <div class="eyebrow">The same fixture / two visual verdicts</div>
-  <h1 class="title">AI can generate.<br><em>Ship Pretty decides.</em></h1>
-  <p class="sub">The screenshots are the proof. The layout below makes the disagreement impossible to miss.</p>
-  <div class="flow"><span>RENDER</span><b class="arrow">→</b><span>JUDGE</span><b class="arrow">→</b><span>PATCH</span><b class="arrow">→</b><span>RE-RENDER</span></div>
-  <div class="compare">
-    <article class="shot before"><div class="shot-head"><span>Without Ship Pretty</span><span class="tag">Not ready</span></div><img src="${before}" alt="Generic AI landing page before refinement"><div class="shot-foot"><span>centered stack / equal cards</span><strong>43 / 100</strong></div></article>
-    <div class="verdict"><b>43<br><span style="font-size:14px;">→</span><br>84</b><i>→</i><span>patch the<br>biggest problem</span></div>
-    <article class="shot after"><div class="shot-head"><span>With Ship Pretty</span><span class="tag">Ready to ship</span></div><img src="${after}" alt="Refined Ship Pretty landing page"><div class="shot-foot"><span>hierarchy / evidence / intent</span><strong>84 / 100</strong></div></article>
-  </div>
-  <div class="caption">One rendered frame is a claim. Before / after evidence is a case.</div>
-</div></section></body></html>`;
-
-const loop = `<!doctype html><html><head><style>${base}
-  .loop-canvas { height: 650px; background: #f8f4ed; color: #0d1020; }
-  .loop-canvas::before { opacity: .35; background-image: linear-gradient(#0d102012 1px, transparent 1px), linear-gradient(90deg, #0d102012 1px, transparent 1px); }
-  .loop-canvas::after { right: -230px; top: 350px; width: 460px; height: 460px; background: #ff806b; opacity: .35; }
-  .loop-canvas .top { color: #68716f; }
-  .loop-canvas .brand { color: #0d1020; }
-  .loop-canvas .mark { background: #0d1020; color: #d9f45a; }
-  .loop-canvas .eyebrow { margin-top: 58px; color: #e75c7f; }
-  .loop-canvas .title { color: #0d1020; font-size: 66px; }
-  .loop-canvas .title em { color: #17634b; }
-  .loop { display: grid; grid-template-columns: repeat(5, 1fr); gap: 16px; margin-top: 52px; }
-  .step { position: relative; min-height: 185px; padding: 18px; border: 2px solid #0d1020; background: #ffffff; box-shadow: 8px 9px 0 #0d1020; }
-  .step:nth-child(2) { background: #ffddd2; transform: translateY(18px); }
-  .step:nth-child(3) { background: #d9f45a; transform: translateY(-8px); }
-  .step:nth-child(4) { background: #d9ccff; transform: translateY(22px); }
-  .step:nth-child(5) { background: #bdebd2; transform: translateY(-2px); }
-  .step-num { font: 900 12px/1 "Courier New", monospace; }
-  .step h2 { margin: 34px 0 8px; font-size: 28px; line-height: .92; letter-spacing: -.07em; }
-  .step p { margin: 0; color: #4e5b58; font-size: 12px; line-height: 1.35; }
-  .step:not(:last-child)::after { content: "→"; position: absolute; right: -31px; top: 75px; z-index: 2; color: #e75c7f; font-size: 30px; font-weight: 900; }
-  .loop-note { display: flex; justify-content: space-between; margin-top: 56px; color: #4e5b58; font: 700 12px/1.4 "Courier New", monospace; letter-spacing: .04em; }
-</style></head><body><section class="canvas loop-canvas"><div class="inner">
-  <div class="top"><div class="brand"><span class="mark">SP</span> Ship Pretty</div><div>How the gate works</div></div>
-  <div class="eyebrow">Not a style checklist / a stopping condition</div>
-  <h1 class="title">The loop is the product.<br><em>The screenshot is the evidence.</em></h1>
-  <div class="loop">
-    <article class="step"><div class="step-num">01 / SEE IT</div><h2>Render</h2><p>Make the browser show the actual interface.</p></article>
-    <article class="step"><div class="step-num">02 / NAME IT</div><h2>Judge</h2><p>Find the biggest visible problem, not the easiest CSS tweak.</p></article>
-    <article class="step"><div class="step-num">03 / FIX IT</div><h2>Patch</h2><p>Change one to three high-leverage decisions.</p></article>
-    <article class="step"><div class="step-num">04 / SEE AGAIN</div><h2>Re-render</h2><p>Compare the new frame against the evidence.</p></article>
-    <article class="step"><div class="step-num">05 / DECIDE</div><h2>Gate</h2><p>Pass, keep iterating, or report the blocker.</p></article>
-  </div>
-  <div class="loop-note"><span>DESKTOP 1440×1000 + MOBILE 390×844</span><span>NO CODE-ONLY CLAIMS</span></div>
-</div></section></body></html>`;
+const html = `<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <style>
+      * { box-sizing: border-box; }
+      html, body { margin: 0; background: #f5f5f2; }
+      body { color: #111411; font-family: Arial, Helvetica, sans-serif; }
+      .plate { width: 1600px; height: 1150px; padding: 58px 64px 56px; background: #f5f5f2; }
+      .meta { display: flex; justify-content: space-between; align-items: baseline; border-bottom: 1px solid #d5d7d2; padding-bottom: 18px; color: #666b66; font: 700 13px/1.2 "Courier New", monospace; letter-spacing: .08em; text-transform: uppercase; }
+      .meta strong { color: #111411; }
+      .intro { display: grid; grid-template-columns: 1fr auto; align-items: end; gap: 40px; padding: 34px 0 30px; }
+      h1 { max-width: 900px; margin: 0; font-size: 62px; line-height: .98; letter-spacing: -.055em; font-weight: 800; }
+      .sub { max-width: 500px; margin: 15px 0 0; color: #505651; font-size: 18px; line-height: 1.35; }
+      .caption { align-self: end; padding-bottom: 4px; color: #505651; font: 700 13px/1.35 "Courier New", monospace; text-align: right; }
+      .caption strong { color: #111411; }
+      .compare { display: grid; grid-template-columns: 1fr 1fr; gap: 28px; }
+      .case { min-width: 0; border-top: 6px solid #c9362b; }
+      .case.after { border-top-color: #1d6b4c; }
+      .case-head { display: flex; justify-content: space-between; align-items: center; min-height: 58px; }
+      .case-label { font: 800 15px/1 "Courier New", monospace; letter-spacing: .06em; text-transform: uppercase; }
+      .case-status { color: #c9362b; font: 800 14px/1 "Courier New", monospace; letter-spacing: .04em; text-transform: uppercase; }
+      .after .case-status { color: #1d6b4c; }
+      .shot { display: block; width: 100%; height: 505px; border: 1px solid #c9ccc6; object-fit: cover; object-position: top; background: white; }
+      .case-foot { display: flex; justify-content: space-between; align-items: baseline; padding-top: 17px; }
+      .score { font-size: 34px; line-height: 1; letter-spacing: -.05em; font-weight: 800; }
+      .before .score { color: #c9362b; }
+      .after .score { color: #1d6b4c; }
+      .score small { margin-left: 7px; color: #5e645e; font: 700 12px/1 "Courier New", monospace; letter-spacing: .06em; text-transform: uppercase; }
+      .note { color: #5e645e; font: 700 12px/1.2 "Courier New", monospace; text-align: right; }
+      .divider { display: flex; justify-content: center; align-items: center; gap: 20px; height: 50px; color: #5e645e; font: 700 12px/1 "Courier New", monospace; letter-spacing: .08em; text-transform: uppercase; }
+      .divider::before, .divider::after { content: ""; width: 40px; height: 1px; background: #b9bdb7; }
+      .divider b { color: #111411; font-size: 22px; }
+      .footer { display: flex; justify-content: space-between; border-top: 1px solid #d5d7d2; margin-top: 26px; padding-top: 16px; color: #666b66; font: 700 12px/1.2 "Courier New", monospace; letter-spacing: .05em; text-transform: uppercase; }
+      .failure { color: #c9362b; }
+      .success { color: #1d6b4c; }
+    </style>
+  </head>
+  <body>
+    <main class="plate">
+      <div class="meta"><span><strong>Ship Pretty</strong> / visual benchmark 001</span><span>Landing page / 1440×1000</span></div>
+      <section class="intro">
+        <div>
+          <h1>Your coding agent is lying to you.</h1>
+          <p class="sub">“Done” means the code runs. It doesn't mean the UI is good.</p>
+        </div>
+        <div class="caption"><strong>Same fixture.</strong><br>One visual QA loop.</div>
+      </section>
+      <section class="compare" aria-label="Before and after comparison">
+        <article class="case before">
+          <div class="case-head"><span class="case-label">Without Ship Pretty</span><span class="case-status">Not ready</span></div>
+          <img class="shot" src="${before}" alt="Landing page before Ship Pretty">
+          <div class="case-foot"><div class="score">43 / 100<small>visual score</small></div><div class="note">runs successfully<br>fails visibly</div></div>
+        </article>
+        <article class="case after">
+          <div class="case-head"><span class="case-label">With Ship Pretty</span><span class="case-status">Ship it</span></div>
+          <img class="shot" src="${after}" alt="Landing page after Ship Pretty">
+          <div class="case-foot"><div class="score">84 / 100<small>visual score</small></div><div class="note">same fixture<br>after one loop</div></div>
+        </article>
+      </section>
+      <div class="divider"><span>WITHOUT SHIP PRETTY</span><b>→</b><span>WITH SHIP PRETTY</span></div>
+      <div class="footer"><span class="failure">43 / 100 · not ready</span><span>render → judge → patch → re-render → gate</span><span class="success">84 / 100 · ship it</span></div>
+    </main>
+  </body>
+</html>`;
 
 const browser = await chromium.launch({ headless: true });
 try {
-  const heroPage = await browser.newPage({ viewport: { width: 1600, height: 1040 }, deviceScaleFactor: 1 });
-  await heroPage.setContent(hero, { waitUntil: "load" });
-  await heroPage.screenshot({ path: resolve(assetRoot, "ship-pretty-hero.png"), fullPage: false });
-  await heroPage.close();
-
-  const loopPage = await browser.newPage({ viewport: { width: 1600, height: 650 }, deviceScaleFactor: 1 });
-  await loopPage.setContent(loop, { waitUntil: "load" });
-  await loopPage.screenshot({ path: resolve(assetRoot, "ship-pretty-loop.png"), fullPage: false });
-  await loopPage.close();
+  const page = await browser.newPage({ viewport: { width: 1600, height: 1150 }, deviceScaleFactor: 1 });
+  await page.setContent(html, { waitUntil: "load" });
+  await page.screenshot({ path: resolve(assetRoot, "ship-pretty-hero.png"), fullPage: false });
+  await page.close();
 } finally {
   await browser.close();
 }
 
-console.log("Showcase assets written: assets/ship-pretty-hero.png, assets/ship-pretty-loop.png");
+console.log("Showcase asset written: assets/ship-pretty-hero.png");

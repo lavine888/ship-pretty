@@ -1,7 +1,7 @@
 # Ship Pretty
 
 <p align="center">
-  <img src="./assets/ship-pretty-hero.png" alt="Ship Pretty: AI can generate. Ship Pretty decides." width="100%">
+  <img src="./assets/ship-pretty-hero.png" alt="Before and after benchmark: 43 out of 100 and not ready becomes 84 out of 100 and ship it." width="100%">
 </p>
 
 <p align="center">
@@ -16,21 +16,19 @@ Ship Pretty is an Agent Skill that enforces the visual loop:
 
 **Render → Judge → Patch → Re-render → Quality Gate**
 
-## The 20-second proof
+## The proof
 
-The poster above uses the same landing-page fixture before and after a Ship Pretty pass. The screenshots are real renders at `1440×1000`; the surrounding composition makes the decision legible at a glance.
+The hero and animation use the same landing-page fixture before and after a Ship Pretty pass. Every screenshot is a real browser render at `1440×1000`; the visual difference is the product.
 
 > **Codex said both were done. Ship Pretty disagreed.**
 
-![Ship Pretty iteration demo](assets/demo.gif)
+![Ship Pretty reasoning loop: before, visible problems, judge, patch, after, and ship it](assets/demo.gif)
 
-The refined page is not “better” because it removed every expressive technique. It is better because the page now makes a product decision: the message, action, and proof have different visual jobs.
+The GIF is not a crossfade. It shows the visible problems, the judgement, the patch decisions, and the second render that moves the score from **43 / 100** to **84 / 100**.
 
 ## The loop
 
-<p align="center">
-  <img src="./assets/ship-pretty-loop.png" alt="Ship Pretty loop: Render, Judge, Patch, Re-render, Quality Gate" width="100%">
-</p>
+**Render → Judge → Patch → Re-render → Gate**
 
 The loop is the product. The screenshot is the evidence. If the frame fails, the agent returns to the highest-leverage patch instead of polishing code in the dark.
 
@@ -65,9 +63,43 @@ Example invocation:
 Use $ship-pretty on this frontend. Render desktop and mobile, identify the highest-impact visual problems, patch them, and keep looping until the quality gate passes. Show the before/after evidence.
 ```
 
-## Benchmark set
+## Benchmark proof
 
-These are small, framework-free HTML fixtures so the visual evidence does not depend on a particular app stack:
+These are small, framework-free HTML fixtures so the visual evidence does not depend on a particular app stack. Each pair below is a real rendered screenshot, not a mockup.
+
+### Landing Page
+
+<table>
+  <tr><th>WITHOUT SHIP PRETTY</th><th>WITH SHIP PRETTY</th></tr>
+  <tr>
+    <td><img src="./assets/benchmarks/landing-page/before/desktop.png" alt="Landing Page before Ship Pretty"></td>
+    <td><img src="./assets/benchmarks/landing-page/after/desktop.png" alt="Landing Page after Ship Pretty"></td>
+  </tr>
+</table>
+
+### Dashboard
+
+<table>
+  <tr><th>WITHOUT SHIP PRETTY</th><th>WITH SHIP PRETTY</th></tr>
+  <tr>
+    <td><img src="./assets/benchmarks/dashboard/before/desktop.png" alt="Dashboard before Ship Pretty"></td>
+    <td><img src="./assets/benchmarks/dashboard/after/desktop.png" alt="Dashboard after Ship Pretty"></td>
+  </tr>
+</table>
+
+### Mobile
+
+<table>
+  <tr><th>WITHOUT SHIP PRETTY</th><th>WITH SHIP PRETTY</th></tr>
+  <tr>
+    <td><img src="./assets/benchmarks/mobile/before/mobile.png" alt="Mobile benchmark before Ship Pretty"></td>
+    <td><img src="./assets/benchmarks/mobile/after/mobile.png" alt="Mobile benchmark after Ship Pretty"></td>
+  </tr>
+</table>
+
+The source fixtures and both viewport captures remain available in [`assets/benchmarks/`](assets/benchmarks/).
+
+### Fixture index
 
 | Benchmark | Tests | Entry |
 | --- | --- | --- |
@@ -75,7 +107,7 @@ These are small, framework-free HTML fixtures so the visual evidence does not de
 | Dashboard | information density, release tables, panel stacking | [`examples/benchmarks/dashboard/index.html`](examples/benchmarks/dashboard/index.html) |
 | Mobile | mobile-first hierarchy, task scanning, reachable navigation | [`examples/benchmarks/mobile/index.html`](examples/benchmarks/mobile/index.html) |
 
-Each benchmark includes a deliberately generic `before.html` seed. The captured landing-page before/after pair is the primary case study; dashboard and mobile fixtures are additional regression surfaces.
+Each benchmark includes a deliberately generic `before.html` seed. The landing-page pair is the primary case study; dashboard and mobile are additional regression surfaces.
 
 ## Verify locally
 
@@ -89,10 +121,15 @@ python skills/ship-pretty/scripts/slop_scan.py examples
 Capture desktop and mobile evidence with any Playwright-compatible Node runtime:
 
 ```bash
-node scripts/capture_screenshots.mjs examples/demo-ui/index.html assets/benchmarks/landing-page/after
-node scripts/capture_screenshots.mjs examples/benchmarks/dashboard/index.html assets/benchmarks/dashboard/after
-node scripts/capture_screenshots.mjs examples/benchmarks/mobile/index.html assets/benchmarks/mobile/after
+node scripts/capture_screenshots.mjs examples/benchmarks/landing-page/before.html output/benchmarks/landing-page-before
+node scripts/capture_screenshots.mjs examples/demo-ui/index.html output/benchmarks/landing-page-after
+node scripts/capture_screenshots.mjs examples/benchmarks/dashboard/before.html output/benchmarks/dashboard-before
+node scripts/capture_screenshots.mjs examples/benchmarks/dashboard/index.html output/benchmarks/dashboard-after
+node scripts/capture_screenshots.mjs examples/benchmarks/mobile/before.html output/benchmarks/mobile-before
+node scripts/capture_screenshots.mjs examples/benchmarks/mobile/index.html output/benchmarks/mobile-after
+python scripts/make_release_assets.py output/benchmarks assets
 node scripts/make_showcase_assets.mjs
+python scripts/make_reasoning_gif.py assets
 ```
 
 The capture helper expects the `playwright` Node package and a Chromium browser. If they are not already available in your environment, install them locally before capturing:
@@ -113,7 +150,6 @@ ship-pretty/
 ├── assets/
 │   ├── demo.gif
 │   ├── ship-pretty-hero.png
-│   ├── ship-pretty-loop.png
 │   ├── social-preview.png
 │   └── benchmarks/              # rendered evidence
 ├── examples/

@@ -18,17 +18,15 @@ Ship Pretty 是一个面向 AI 生成前端的 Agent Skill。它不把“代码�
 
 ## 20 秒看懂
 
-上方海报使用同一个 Landing Page fixture，展示 Ship Pretty 前后的真实渲染差异。它不是把两张截图简单并排，而是把“问题 → 修补 → 结果”作为一个完整 case study 呈现。
+上方基准报告使用同一个 Landing Page fixture，展示 Ship Pretty 前后的真实渲染差异。截图是主角，文字只负责标注证据。
 
 > **Codex 说两版都完成了。Ship Pretty 不同意。**
 
-![Ship Pretty 迭代演示](assets/demo.gif)
+![Ship Pretty 视觉 QA 推理过程：Before、问题、Judge、Patch、After、Ship it](assets/demo.gif)
 
 ## 工作闭环
 
-<p align="center">
-  <img src="./assets/ship-pretty-loop.png" alt="Ship Pretty 工作闭环：渲染、判断、修补、再次渲染、质量门槛" width="100%">
-</p>
+**Render → Judge → Patch → Re-render → Gate**
 
 核心不是一张 UI 规则清单，而是一个停止条件：截图不过关，就不能只凭代码宣布完成。
 
@@ -42,7 +40,39 @@ Ship Pretty 是一个面向 AI 生成前端的 Agent Skill。它不把“代码�
 
 默认检查桌面 `1440×1000` 和移动端 `390×844`。完整中文门槛参考见 [`skills/ship-pretty/references/quality-gate.zh-CN.md`](skills/ship-pretty/references/quality-gate.zh-CN.md)。
 
-## Benchmark
+## Benchmark 证据
+
+下面是三个真实浏览器渲染的 Before / After 对比，不是设计稿或装饰性 mockup。
+
+### Landing Page
+
+<table>
+  <tr><th>WITHOUT SHIP PRETTY</th><th>WITH SHIP PRETTY</th></tr>
+  <tr>
+    <td><img src="./assets/benchmarks/landing-page/before/desktop.png" alt="Landing Page 优化前"></td>
+    <td><img src="./assets/benchmarks/landing-page/after/desktop.png" alt="Landing Page 优化后"></td>
+  </tr>
+</table>
+
+### Dashboard
+
+<table>
+  <tr><th>WITHOUT SHIP PRETTY</th><th>WITH SHIP PRETTY</th></tr>
+  <tr>
+    <td><img src="./assets/benchmarks/dashboard/before/desktop.png" alt="Dashboard 优化前"></td>
+    <td><img src="./assets/benchmarks/dashboard/after/desktop.png" alt="Dashboard 优化后"></td>
+  </tr>
+</table>
+
+### Mobile
+
+<table>
+  <tr><th>WITHOUT SHIP PRETTY</th><th>WITH SHIP PRETTY</th></tr>
+  <tr>
+    <td><img src="./assets/benchmarks/mobile/before/mobile.png" alt="Mobile 优化前"></td>
+    <td><img src="./assets/benchmarks/mobile/after/mobile.png" alt="Mobile 优化后"></td>
+  </tr>
+</table>
 
 - Landing Page：Hero 层级、CTA 权重、不对称构图
 - Dashboard：信息密度、发布列表、移动端面板堆叠
