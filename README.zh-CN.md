@@ -1,8 +1,8 @@
-# Ship Pretty（中文参考）
-
 <p align="center">
   <img src="./assets/ship-pretty-hero.png" alt="Ship Pretty：AI 会生成界面，Ship Pretty 决定它是否准备好发布" width="100%">
 </p>
+
+# Ship Pretty（中文参考）
 
 <p align="center">
   <a href="./README.md">English</a> · <strong>简体中文</strong>

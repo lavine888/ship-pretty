@@ -1,8 +1,8 @@
-# Ship Pretty
-
 <p align="center">
   <img src="./assets/ship-pretty-hero.png" alt="Before and after benchmark: 43 out of 100 and not ready becomes 84 out of 100 and ship it." width="100%">
 </p>
+
+# Ship Pretty
 
 <p align="center">
   <a href="./README.md">English</a> · <a href="./README.zh-CN.md">简体中文</a>
