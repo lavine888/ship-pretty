@@ -42,6 +42,8 @@ Use when no reference is supplied. Judge the interface on clarity, composition, 
 
 Read `references/quality-gate.md` and `references/anti-slop-patterns.md`.
 
+For Chinese-language projects or teams, also read `references/quality-gate.zh-CN.md` as a localized reading aid. The English `quality-gate.md` remains the canonical rule set.
+
 ### Reference gate
 
 Use when the user supplies screenshots, a Figma target, an existing site, or a set of inspiration references.

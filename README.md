@@ -1,5 +1,7 @@
 # Ship Pretty
 
+中文参考：[README.zh-CN.md](README.zh-CN.md)
+
 > **AI can generate. Ship Pretty decides when it is actually ready to ship.**
 
 AI agents can produce a working frontend and still miss the obvious: weak hierarchy, default composition, repetitive cards, and a mobile layout that only got smaller.
@@ -97,6 +99,7 @@ The capture contract is fixed at **1440×1000** and **390×844**. Screenshots ar
 ```text
 ship-pretty/
 ├── README.md
+├── README.zh-CN.md
 ├── assets/
 │   ├── demo.gif
 │   ├── social-preview.png
