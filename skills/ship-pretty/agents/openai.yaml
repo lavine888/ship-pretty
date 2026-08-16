@@ -1,0 +1,4 @@
+interface:
+  display_name: "Ship Pretty"
+  short_description: "Render, critique, and polish AI-built interfaces until they pass a visual quality gate"
+  default_prompt: "Use $ship-pretty to inspect the rendered interface, identify the highest-impact visual problems, patch them, re-render, and iterate until the result passes the quality gate. Use supplied screenshots or references as quality anchors without copying them literally."

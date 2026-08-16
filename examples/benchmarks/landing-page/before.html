@@ -1,0 +1,40 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Ship Pretty Demo Fixture — Before</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; font-family: Arial, sans-serif; background: #070b18; color: white; }
+    .hero { min-height: 100vh; display: flex; align-items: center; justify-content: center; text-align: center; padding: 72px 24px; background: radial-gradient(circle at top, #4936ff55, transparent 42%); }
+    .wrap { width: min(1040px, 100%); }
+    .pill { display:inline-block; padding: 8px 14px; border-radius:9999px; border:1px solid #ffffff33; box-shadow:0 12px 30px #0006; }
+    h1 { font-size: clamp(52px, 8vw, 96px); margin:24px 0; line-height:.95; background:linear-gradient(90deg,#fff,#9fa8ff); -webkit-background-clip:text; color:transparent; }
+    p { max-width:720px; margin:0 auto 28px; color:#bdc5dd; font-size:20px; line-height:1.6; }
+    .actions { display:flex; justify-content:center; gap:12px; }
+    button { border:0; border-radius:9999px; padding:14px 22px; font-weight:700; box-shadow:0 12px 30px #0008; }
+    .primary { background:linear-gradient(90deg,#7c5cff,#38bdf8); color:white; }
+    .secondary { background:#161d35; color:white; }
+    .cards { margin-top:72px; display:grid; grid-template-columns:repeat(3,1fr); gap:18px; }
+    .card { text-align:left; padding:28px; border-radius:24px; border:1px solid #ffffff1c; background:#ffffff0c; box-shadow:0 20px 60px #0006; backdrop-filter:blur(18px); }
+    .icon { width:42px; height:42px; border-radius:9999px; background:linear-gradient(135deg,#7c5cff,#38bdf8); margin-bottom:26px; box-shadow:0 0 50px #7c5cff99; }
+    @media (max-width: 700px) { .cards { grid-template-columns:1fr; } h1 { font-size:54px; } }
+  </style>
+</head>
+<body>
+  <main class="hero">
+    <div class="wrap">
+      <div class="pill">The future is here</div>
+      <h1>Transform your workflow with AI</h1>
+      <p>Unlock the power of next-generation intelligence and supercharge your productivity with one beautiful platform.</p>
+      <div class="actions"><button class="primary">Get started</button><button class="secondary">Learn more</button></div>
+      <section class="cards">
+        <article class="card"><div class="icon"></div><h2>Smarter</h2><p>Everything you need to work smarter with intelligent automation.</p></article>
+        <article class="card"><div class="icon"></div><h2>Faster</h2><p>Move faster with tools designed for the future of modern teams.</p></article>
+        <article class="card"><div class="icon"></div><h2>Better</h2><p>Elevate your experience with a beautifully crafted AI workspace.</p></article>
+      </section>
+    </div>
+  </main>
+</body>
+</html>

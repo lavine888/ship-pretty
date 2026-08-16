@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Today — Ship Pretty mobile benchmark</title>
+  <style>
+    :root { --ink: #17231f; --muted: #78827c; --paper: #f7f5ef; --line: #dfe0d7; --orange: #ed6a42; --green: #17634b; --panel: #fffdf8; }
+    * { box-sizing: border-box; }
+    body { margin: 0; color: var(--ink); background: var(--paper); font-family: Arial, sans-serif; }
+    .app { min-height: 100vh; width: min(100%, 520px); margin: 0 auto; padding: 18px 18px 86px; }
+    .top { display: flex; justify-content: space-between; align-items: center; padding: 8px 0 28px; }
+    .top small, .label { color: var(--muted); font-family: "Courier New", monospace; text-transform: uppercase; letter-spacing: .11em; font-size: 10px; }
+    .profile { width: 32px; height: 32px; display: grid; place-items: center; border: 1px solid var(--ink); color: var(--ink); font-size: 11px; font-weight: 700; }
+    .date { color: var(--orange); }
+    h1 { margin: 9px 0 10px; font-size: 53px; line-height: .94; letter-spacing: -.08em; }
+    .intro { max-width: 310px; margin: 0; color: var(--muted); line-height: 1.5; font-size: 15px; }
+    .progress { display: flex; align-items: center; gap: 11px; margin: 31px 0 26px; color: var(--green); font-size: 12px; font-weight: 700; }
+    .progress-bar { flex: 1; height: 7px; background: #d9e4db; }
+    .progress-bar::after { content: ""; display: block; width: 63%; height: 100%; background: var(--green); }
+    .task-list { border-top: 1px solid var(--line); }
+    .task { display: grid; grid-template-columns: 22px 1fr auto; gap: 11px; align-items: start; padding: 17px 0; border-bottom: 1px solid var(--line); }
+    .task-check { width: 17px; height: 17px; margin-top: 1px; border: 1px solid var(--ink); }
+    .task.done .task-check { border-color: var(--green); background: var(--green); }
+    .task.done .task-check::after { content: "✓"; display: block; color: white; text-align: center; font-size: 11px; line-height: 16px; }
+    .task strong { display: block; font-size: 14px; }
+    .task small { display: block; margin-top: 5px; color: var(--muted); font-size: 12px; line-height: 1.35; }
+    .task time { color: var(--muted); font-family: "Courier New", monospace; font-size: 10px; }
+    .nav { position: fixed; right: 18px; bottom: 16px; left: 18px; display: flex; justify-content: space-around; padding: 13px 10px; border: 1px solid var(--ink); background: var(--ink); color: #dfeae0; box-shadow: 8px 8px 0 #f4cbbc; }
+    .nav a { color: inherit; text-decoration: none; font-size: 11px; }
+    .nav a[aria-current="page"] { color: white; font-weight: 700; }
+    @media (min-width: 700px) { .app { margin-top: 30px; border: 1px solid var(--line); } .nav { position: static; margin-top: 34px; } }
+  </style>
+</head>
+<body>
+  <main class="app">
+    <header class="top"><small>Focus / Monday, 18 Mar</small><div class="profile">LV</div></header>
+    <div class="label date">08:40 · 3 priorities</div>
+    <h1>Make room<br />for the work.</h1>
+    <p class="intro">A short list for the things that need your attention before the day gets loud.</p>
+    <div class="progress"><span>2 / 3 done</span><span class="progress-bar"></span></div>
+    <section class="task-list" aria-label="Today's priorities"><article class="task done"><span class="task-check"></span><div><strong>Review release screenshots</strong><small>Check desktop and mobile before stand-up.</small></div><time>08:00</time></article><article class="task"><span class="task-check"></span><div><strong>Send the team decision</strong><small>Close the open question on the onboarding flow.</small></div><time>10:30</time></article><article class="task"><span class="task-check"></span><div><strong>Write the handoff note</strong><small>Leave the next person a clear starting point.</small></div><time>15:00</time></article></section>
+    <nav class="nav" aria-label="App navigation"><a href="#today" aria-current="page">Today</a><a href="#inbox">Inbox</a><a href="#history">History</a></nav>
+  </main>
+</body>
+</html>
