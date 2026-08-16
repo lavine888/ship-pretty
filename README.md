@@ -1,6 +1,12 @@
 # Ship Pretty
 
-中文参考：[README.zh-CN.md](README.zh-CN.md)
+<p align="center">
+  <img src="./assets/ship-pretty-hero.png" alt="Ship Pretty: AI can generate. Ship Pretty decides." width="100%">
+</p>
+
+<p align="center">
+  <a href="./README.md">English</a> · <a href="./README.zh-CN.md">简体中文</a>
+</p>
 
 > **AI can generate. Ship Pretty decides when it is actually ready to ship.**
 
@@ -12,18 +18,21 @@ Ship Pretty is an Agent Skill that enforces the visual loop:
 
 ## The 20-second proof
 
-The first fixture is intentionally generic. The comparison below uses the same desktop viewport (1440×1000) before and after a Ship Pretty pass.
-
-| Without Ship Pretty | With Ship Pretty |
-| --- | --- |
-| ![Generic AI landing page before Ship Pretty](assets/benchmarks/landing-page/before/desktop.png) | ![Refined landing page after Ship Pretty](assets/benchmarks/landing-page/after/desktop.png) |
-| centered stack · equal cards · gradient overload | product-specific hierarchy · asymmetric composition · evidence panel |
+The poster above uses the same landing-page fixture before and after a Ship Pretty pass. The screenshots are real renders at `1440×1000`; the surrounding composition makes the decision legible at a glance.
 
 > **Codex said both were done. Ship Pretty disagreed.**
 
 ![Ship Pretty iteration demo](assets/demo.gif)
 
 The refined page is not “better” because it removed every expressive technique. It is better because the page now makes a product decision: the message, action, and proof have different visual jobs.
+
+## The loop
+
+<p align="center">
+  <img src="./assets/ship-pretty-loop.png" alt="Ship Pretty loop: Render, Judge, Patch, Re-render, Quality Gate" width="100%">
+</p>
+
+The loop is the product. The screenshot is the evidence. If the frame fails, the agent returns to the highest-leverage patch instead of polishing code in the dark.
 
 ## What the skill forces
 
@@ -83,6 +92,7 @@ Capture desktop and mobile evidence with any Playwright-compatible Node runtime:
 node scripts/capture_screenshots.mjs examples/demo-ui/index.html assets/benchmarks/landing-page/after
 node scripts/capture_screenshots.mjs examples/benchmarks/dashboard/index.html assets/benchmarks/dashboard/after
 node scripts/capture_screenshots.mjs examples/benchmarks/mobile/index.html assets/benchmarks/mobile/after
+node scripts/make_showcase_assets.mjs
 ```
 
 The capture helper expects the `playwright` Node package and a Chromium browser. If they are not already available in your environment, install them locally before capturing:
@@ -102,6 +112,8 @@ ship-pretty/
 ├── README.zh-CN.md
 ├── assets/
 │   ├── demo.gif
+│   ├── ship-pretty-hero.png
+│   ├── ship-pretty-loop.png
 │   ├── social-preview.png
 │   └── benchmarks/              # rendered evidence
 ├── examples/
