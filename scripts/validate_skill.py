@@ -4,6 +4,7 @@
 from __future__ import annotations
 
 import argparse
+import json
 import re
 from pathlib import Path
 
@@ -63,6 +64,17 @@ def main() -> int:
             if not (skill / "scripts" / script).is_file():
                 errors.append(f"broken SKILL.md script reference: scripts/{script}")
 
+    pattern_library = skill / "references" / "taste-library" / "patterns.json"
+    if not pattern_library.is_file():
+        errors.append(f"missing Taste Library: {pattern_library.relative_to(root)}")
+    else:
+        try:
+            patterns = json.loads(pattern_library.read_text(encoding="utf-8"))
+            if not isinstance(patterns, list) or not patterns:
+                errors.append("Taste Library must be a non-empty JSON array")
+        except json.JSONDecodeError as exc:
+            errors.append(f"invalid Taste Library JSON: {exc}")
+
     if errors:
         print("Ship Pretty skill validation: FAIL")
         for error in errors:
@@ -74,6 +86,7 @@ def main() -> int:
     print("- SKILL.md frontmatter: name, description")
     print("- agents/openai.yaml: display_name, short_description, default_prompt")
     print("- internal references: resolved")
+    print("- Taste Library: valid JSON array")
     return 0
 
 

@@ -1,6 +1,6 @@
 ---
 name: ship-pretty
-description: Render, critique, and iteratively polish web interfaces until they pass a visual quality gate. Use when Codex is asked to make a UI more polished, premium, intentional, less generic, less AI-looking, closer to a visual reference, or ready to ship; when a user is dissatisfied with frontend aesthetics despite working code; or when visual changes need screenshot-based verification across desktop/mobile. Prefer this skill for frontend visual QA and refinement rather than initial product architecture.
+description: Render, critique, retrieve transferable design patterns, and iteratively polish web interfaces until they pass a visual quality gate. Use when Codex is asked to make a UI more polished, premium, intentional, less generic, less AI-looking, closer to a visual reference, or ready to ship; when a user is dissatisfied with frontend aesthetics despite working code; when interaction or motion states need visual QA; or when visual changes need screenshot-based verification across desktop/mobile. Prefer this skill for frontend visual QA and refinement rather than initial product architecture.
 ---
 
 # Ship Pretty
@@ -44,7 +44,7 @@ Read `references/quality-gate.md` and `references/anti-slop-patterns.md`.
 
 For Chinese-language projects or teams, also read `references/quality-gate.zh-CN.md` as a localized reading aid. The English `quality-gate.md` remains the canonical rule set.
 
-For Chinese-language projects or teams, also read `references/quality-gate.zh-CN.md` as a localized reading aid. The English `quality-gate.md` remains the canonical rule set.
+When a visible problem needs a design decision rather than a CSS tweak, read `references/taste-library/pattern-schema.md` and retrieve up to three candidate patterns with `scripts/retrieve_patterns.py`. The library provides hypotheses to test, not permission to copy a reference product.
 
 ### Reference gate
 
@@ -89,7 +89,22 @@ Before zooming into components, answer:
 
 Prioritize macro problems over micro polish.
 
-### 2. Pick only 1–3 high-impact fixes
+### 2. Name the problem and retrieve a decision
+
+Turn the rendered observation into short signals with context, for example `flat sidebar`, `missing loading state`, `generic marketing copy`, or `mobile feels cramped`.
+
+For problems covered by the Taste Library, run:
+
+```bash
+python <skill-dir>/scripts/retrieve_patterns.py \
+  --issues "flat sidebar, unclear hierarchy" \
+  --context dashboard \
+  --limit 3
+```
+
+Read the shortlisted pattern's boundaries, failure modes, and QA checks. Select at most one pattern for the next patch unless the evidence shows two independent high-impact problems. If there is no useful match, record `pattern: none` and continue with direct quality-gate reasoning. Never invent a match.
+
+### 3. Pick only 1–3 high-impact fixes
 
 Prefer changes with large perceptual leverage, such as:
 
@@ -104,7 +119,7 @@ Prefer changes with large perceptual leverage, such as:
 
 Avoid shotgun edits across dozens of unrelated CSS values.
 
-### 3. Patch with a hypothesis
+### 4. Patch with a hypothesis
 
 For each meaningful patch, be able to state:
 
@@ -115,7 +130,7 @@ Examples:
 - “Narrowing the copy column and increasing the display/body contrast should make the value proposition legible before the illustration competes for attention.”
 - “Removing six independent card borders should let grouping come from spacing and hierarchy instead of boxes.”
 
-### 4. Re-render and compare
+### 5. Re-render and compare
 
 Inspect the new frame beside the baseline or previous iteration.
 
@@ -123,7 +138,7 @@ Do not accept a patch simply because it is different. Revert or revise changes t
 
 Save the before/after screenshots where a reviewer can open them. When possible, keep the viewport dimensions, fixture, and iteration number next to the evidence so another agent can reproduce the judgment.
 
-### 5. Stop only on a real condition
+### 6. Stop only on a real condition
 
 Default pass condition:
 
@@ -161,6 +176,8 @@ When references are provided:
 
 See `references/reference-mode.md`.
 
+For exported reference projects, use `references/design-forensics.md`. Extract the problem, decision, boundary, failure mode, and observable QA check. Discard brand identity, exact copy, proprietary assets, and implementation-specific values. Add a pattern to `references/taste-library/patterns.json` only after validating its schema and stating its provenance.
+
 ## Static scan is supporting evidence only
 
 For HTML/CSS/JS/TS/TSX-heavy projects, optionally run:
@@ -172,6 +189,16 @@ python <skill-dir>/scripts/slop_scan.py <project-or-source-dir>
 Use its findings as prompts for inspection. Never fail a design solely because the scanner reports a pattern.
 
 A gradient can be excellent. A rounded card can be excellent. The scanner cannot see intent.
+
+## Interaction and motion
+
+When the interface contains meaningful controls, async work, disclosure, navigation, or motion, read `references/interaction-gate.md` and inspect the relevant runtime states. Cover default/focus, pending, success, error/recovery, empty, disabled, and expanded/collapsed states where applicable. A polished default screenshot is not evidence that the interaction is ready.
+
+Use this rule for motion:
+
+> Motion must explain state, hierarchy, causality, or continuity. If it explains none of these, delete it.
+
+Record state evidence separately from static screenshot scores. Do not award an interaction or motion pass from source inspection alone.
 
 ## Final response
 

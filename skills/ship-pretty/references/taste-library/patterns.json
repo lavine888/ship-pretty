@@ -1,0 +1,93 @@
+[
+  {
+    "id": "layout.split-evidence-panel",
+    "dimension": "layout",
+    "problem": "A landing-page hero is a centered stack with a generic promise and no visible proof.",
+    "decision": "Split the first viewport into a narrow narrative column and a concrete evidence or action panel.",
+    "why_it_works": "The message gets a clear reading path while the proof gets a separate visual job; neither has to compete through decoration.",
+    "use_when": ["the page has one primary decision", "the product can show a real result, state, or artifact", "the hero currently reads like a template"],
+    "avoid_when": ["the product is an immersive editorial experience", "the evidence is not yet real enough to show"],
+    "failure_modes": ["the panel is only decorative", "both columns receive equal emphasis", "mobile preserves two columns and becomes cramped"],
+    "signals": ["centered hero", "generic hero", "equal cards", "no proof", "hero hierarchy", "landing page", "composition"],
+    "qa": ["At desktop width, the first viewport has one obvious narrative entry point and one distinct proof or action area.", "The proof panel contains product-specific evidence rather than a decorative dashboard illustration.", "At mobile width, the narrative and proof become a deliberate sequence with no horizontal overflow."] ,
+    "provenance": "curated from Ship Pretty landing-page benchmark; not copied from a branded product"
+  },
+  {
+    "id": "hierarchy.three-level-navigation",
+    "dimension": "hierarchy",
+    "problem": "Global navigation, local navigation, and utility actions have the same visual weight.",
+    "decision": "Separate global destination, current workspace context, and utility controls into three visible levels.",
+    "why_it_works": "Users can locate themselves before choosing an action; quiet controls stop competing with the current task.",
+    "use_when": ["a dashboard has more than one navigation scope", "utility actions are currently mixed into the primary list", "the active state is difficult to find"],
+    "avoid_when": ["the product has fewer than three meaningful destinations", "extra navigation would add structure without a real task"],
+    "failure_modes": ["three levels become three loud rows", "active state is communicated only by color", "utility actions remain mixed with destinations"],
+    "signals": ["flat sidebar", "no active state", "navigation too loud", "utility mixed with nav", "dashboard hierarchy", "sidebar"],
+    "qa": ["The current location is clear without opening a menu.", "Primary navigation, local context, and utility actions are visually distinguishable.", "The active state remains legible without relying on a single hue."] ,
+    "provenance": "curated design decision; verify against the product's information architecture"
+  },
+  {
+    "id": "components.metric-with-context",
+    "dimension": "components",
+    "problem": "A metric wall presents large numbers without enough context to support a decision.",
+    "decision": "Pair each important metric with its time or comparison context, a concise label, and the next useful action.",
+    "why_it_works": "The number becomes interpretable and actionable instead of becoming decoration that merely fills a card grid.",
+    "use_when": ["a dashboard leads with metrics", "users must compare progress or risk", "the current cards repeat the same visual treatment"],
+    "avoid_when": ["the number has no trustworthy comparison", "a list or table is the real task surface"],
+    "failure_modes": ["context is hidden in tiny text", "every metric gets identical emphasis", "the action is disconnected from the metric"],
+    "signals": ["metric wall", "large numbers", "repetitive cards", "dashboard cards", "no context", "density"],
+    "qa": ["A user can explain what each key number means and compared with what.", "The most decision-relevant metric has the strongest emphasis.", "Removing card borders would not destroy the grouping or hierarchy."] ,
+    "provenance": "curated design decision; no specific product implementation copied"
+  },
+  {
+    "id": "interaction.state-completeness",
+    "dimension": "interaction",
+    "problem": "A static interface looks finished, but clicks reveal missing loading, error, empty, or disabled states.",
+    "decision": "Define the state contract for every primary action before polishing its default state.",
+    "why_it_works": "Visual quality survives contact with the task; feedback explains whether the system accepted, rejected, or is still processing an action.",
+    "use_when": ["the page contains a primary action", "async work can fail or take time", "a screenshot hides important state changes"],
+    "avoid_when": ["the control is purely presentational and has no state transition"],
+    "failure_modes": ["loading is represented only by a spinner", "errors disappear without recovery", "success has no visible confirmation", "disabled controls look merely inactive"],
+    "signals": ["missing loading state", "missing error state", "missing empty state", "button feels dead", "interaction", "async action"],
+    "qa": ["The primary action has inspected default, hover or focus, pending, success, failure, and disabled states where applicable.", "Each failure state explains recovery or the next safe action.", "The state change is visible within the task's spatial context rather than appearing as unrelated decoration."],
+    "provenance": "curated interaction principle; requires runtime inspection"
+  },
+  {
+    "id": "motion.state-change-only",
+    "dimension": "motion",
+    "problem": "Animation adds movement but does not explain hierarchy, causality, or continuity.",
+    "decision": "Keep motion only when it communicates a state change, causal response, spatial continuity, or task progress.",
+    "why_it_works": "Motion earns attention by carrying information instead of making a static interface feel busier.",
+    "use_when": ["a state changes in place", "content moves between related regions", "the system needs to communicate progress or completion"],
+    "avoid_when": ["motion is only an entrance flourish", "the same animation repeats on every card", "the user is waiting for a decorative sequence"],
+    "failure_modes": ["motion delays the task", "animation hides the new state", "motion is inconsistent across equivalent actions", "reduced-motion users lose feedback"],
+    "signals": ["decorative animation", "random entrance motion", "glow pulse", "motion without meaning", "transition", "animation"],
+    "qa": ["A reviewer can name the information carried by each non-trivial animation.", "The new state remains understandable if motion is disabled or interrupted.", "Reduced-motion behavior preserves causality and completion feedback."] ,
+    "provenance": "curated motion principle; requires runtime inspection"
+  },
+  {
+    "id": "responsive.recompose-task-order",
+    "dimension": "responsive",
+    "problem": "Desktop layout is compressed into mobile, preserving order and density that no longer match the task.",
+    "decision": "Define mobile as a new task sequence: keep the primary action and status visible, defer secondary context, and stack by decision order.",
+    "why_it_works": "Mobile becomes a deliberate reading path instead of a narrow desktop screenshot.",
+    "use_when": ["desktop uses columns or side panels", "the mobile viewport has a different task rhythm", "secondary content currently pushes the primary action below the fold"],
+    "avoid_when": ["the product truly requires a wide canvas", "content order is legally or semantically fixed"],
+    "failure_modes": ["all desktop content is merely stacked", "primary action is buried", "tables become unreadable scroll traps", "bottom navigation covers content"],
+    "signals": ["mobile feels cramped", "desktop layout shrunk", "primary action below fold", "mobile overflow", "responsive integrity"],
+    "qa": ["The first mobile viewport exposes the primary task, status, and next action in the intended order.", "Secondary content is deferred without becoming inaccessible.", "The page has no accidental horizontal overflow and fixed controls do not cover task content."],
+    "provenance": "curated from Ship Pretty mobile benchmark; verify against the product task"
+  },
+  {
+    "id": "microcopy.specific-recovery",
+    "dimension": "microcopy",
+    "problem": "Generic labels such as Get started, Learn more, or Something went wrong hide the product's intent.",
+    "decision": "Name the action, status, and recovery path using the user's object and next decision.",
+    "why_it_works": "Specific words reinforce hierarchy and make the interface feel like it understands the task rather than filling a template.",
+    "use_when": ["the UI uses generic marketing copy", "an error needs recovery", "a status or empty state is ambiguous"],
+    "avoid_when": ["the product language is intentionally abstract and established", "a short standard label is genuinely unambiguous"],
+    "failure_modes": ["copy becomes verbose", "the label describes implementation rather than user outcome", "different states use inconsistent nouns"],
+    "signals": ["generic marketing copy", "get started", "learn more", "something went wrong", "empty state copy", "microcopy"],
+    "qa": ["The primary action names the user's outcome, not a vague initiation verb.", "Empty, loading, success, and error states each say what happened and what to do next.", "The same product object keeps the same name across navigation, content, and recovery copy."],
+    "provenance": "curated anti-slop and product-language principle"
+  }
+]

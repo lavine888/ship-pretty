@@ -32,6 +32,23 @@ The GIF is not a crossfade. It shows the visible problems, the judgement, the pa
 
 The loop is the product. The screenshot is the evidence. If the frame fails, the agent returns to the highest-leverage patch instead of polishing code in the dark.
 
+## v0.2: retrieve a design decision
+
+The next patch should not be “add a gradient” just because the Judge found weak hierarchy. Ship Pretty now includes a small, auditable Taste Library:
+
+**Render → Judge → Retrieve Pattern → Patch → Re-render → Gate**
+
+Patterns describe a problem, a transferable design decision, boundaries, failure modes, provenance, and observable QA checks. They are hypotheses to test—not screenshots or brand recipes to copy.
+
+```bash
+python skills/ship-pretty/scripts/retrieve_patterns.py \
+  --issues "flat sidebar, unclear hierarchy" \
+  --context dashboard \
+  --limit 3
+```
+
+For exported reference projects—including Manus-generated experiments—use the [design-forensics record](skills/ship-pretty/references/design-forensics.md) before adding a new pattern. The catalog currently covers layout, hierarchy, components, interaction, motion, responsive integrity, and microcopy. Static screenshots remain insufficient evidence for runtime states.
+
 ## What the skill forces
 
 1. Establish the page goal and preserve deliberate intent.
@@ -115,6 +132,7 @@ Run the structural check and static supporting scan:
 
 ```bash
 python scripts/validate_skill.py .
+python skills/ship-pretty/scripts/validate_taste_library.py
 python skills/ship-pretty/scripts/slop_scan.py examples
 ```
 
@@ -159,7 +177,14 @@ ship-pretty/
     ├── SKILL.md
     ├── agents/openai.yaml
     ├── references/
+    │   ├── design-forensics.md
+    │   ├── interaction-gate.md
+    │   └── taste-library/
+    │       ├── pattern-schema.md
+    │       └── patterns.json
     └── scripts/
+        ├── retrieve_patterns.py
+        └── validate_taste_library.py
 ```
 
 ## Contributing

@@ -30,6 +30,23 @@ Ship Pretty 是一个面向 AI 生成前端的 Agent Skill。它不把“代码�
 
 核心不是一张 UI 规则清单，而是一个停止条件：截图不过关，就不能只凭代码宣布完成。
 
+## v0.2：检索设计决策
+
+Judge 发现层级问题后，下一步不应该机械地“加渐变”。现在 Skill 增加了一个可审计的 Taste Library：
+
+**Render → Judge → Retrieve Pattern → Patch → Re-render → Gate**
+
+每条 pattern 都包含问题、可迁移的设计决策、适用边界、失败模式、来源和可观察的 QA 条件。它们是待验证的假设，不是用来复制品牌皮肤的截图。
+
+```bash
+python skills/ship-pretty/scripts/retrieve_patterns.py \
+  --issues "flat sidebar, unclear hierarchy" \
+  --context dashboard \
+  --limit 3
+```
+
+如果要分析导出的参考项目（包括 Manus 生成的实验项目），先使用 [design-forensics 记录格式](skills/ship-pretty/references/design-forensics.md)，再加入 pattern。当前覆盖 layout、hierarchy、components、interaction、motion、responsive 和 microcopy；静态截图仍然不能证明运行时状态。
+
 ## 怎么使用
 
 把 `skills/ship-pretty/` 通过你的 Agent Skill 工作流安装，然后发送类似指令：

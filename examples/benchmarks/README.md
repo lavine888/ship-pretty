@@ -21,3 +21,15 @@ node scripts/capture_screenshots.mjs examples/benchmarks/mobile/index.html asset
 ```
 
 The default evidence viewports are 1440×1000 and 390×844. The before/after pair in the root README is a rendered comparison, not a code-only claim.
+
+## Pattern retrieval
+
+After judging a render, use the Taste Library to retrieve a small set of design decisions to test:
+
+```bash
+python skills/ship-pretty/scripts/retrieve_patterns.py \
+  --issues "mobile feels cramped, primary action below fold" \
+  --context mobile
+```
+
+The result is advisory. Re-render the patch and record whether the pattern's QA checks actually improved.
